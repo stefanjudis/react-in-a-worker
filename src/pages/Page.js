@@ -15,7 +15,6 @@ function Page(props) {
     return null;
   }
   const serverData = getData(props);
-  console.log(serverData);
   const [isLoading, setIsLoading] = useState(!serverData);
   const [data, setData] = useState(serverData);
 
@@ -26,7 +25,7 @@ function Page(props) {
       setIsLoading(false);
     }
 
-    if (props.component.getInitialProps && !data) {
+    if (!data && props.component.getInitialProps) {
       fetchData();
     } else {
       setIsLoading(false);

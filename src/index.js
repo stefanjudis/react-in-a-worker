@@ -15,7 +15,8 @@ async function handleRequest(event) {
   if (route) {
     let ctx = {
       component: route.component,
-      match: { ...matchPath(path, route) }
+      match: { ...matchPath(path, route) },
+      data: {}
     };
 
     if (ctx.component.getInitialProps) {
