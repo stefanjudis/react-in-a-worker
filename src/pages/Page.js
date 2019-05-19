@@ -1,0 +1,43 @@
+import React, { useState, useEffect } from 'react';
+
+function Page(props) {
+  console.log(props);
+
+  function getData(props) {
+    if (props.staticContext) {
+      return props.staticContext;
+    } else if (typeof window !== 'undefined') {
+      const data = window.__INITIAL_DATA__;
+      delete window.__INITIAL_DATA__;
+      return data;
+    }
+
+    return null;
+  }
+  const serverData = getData(props);
+  console.log(serverData);
+  const [isLoading, setIsLoading] = useState(!serverData);
+  const [data, setData] = useState(serverData);
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await props.component.getInitialProps(props);
+      setData(data);
+      setIsLoading(false);
+    }
+
+    if (props.component.getInitialProps && !data) {
+      fetchData();
+    } else {
+      setIsLoading(false);
+    }
+  });
+
+  const C = props.component;
+
+  return (
+    <div>{isLoading ? <div>loading</div> : <C data={data} {...props} />}</div>
+  );
+}
+
+export default Page;
