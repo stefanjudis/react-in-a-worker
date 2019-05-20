@@ -12,8 +12,4 @@ export default [
     path: '/dogs/:dog',
     component: Dogs
   }
-  // {
-  //   path: '/favorites',
-  //   component: Favorites
-  // }
 ];

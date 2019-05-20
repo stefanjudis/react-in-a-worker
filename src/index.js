@@ -26,8 +26,6 @@ async function handleRequest(event) {
       };
     }
 
-    console.log(ctx);
-
     const markup = ReactDOMServer.renderToString(
       <App match={ctx.match} data={ctx.data} />
     );
@@ -35,6 +33,7 @@ async function handleRequest(event) {
     return new Response(
       `<html>
         <head>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
         </head>
         <body>
