@@ -52,7 +52,17 @@ async function handleRequest(event) {
       }
     );
   } else {
-    return fetch(event.request);
+    return caches.open('mysite-dynamic').then(function(cache) {
+      return cache.match(event.request).then(function(response) {
+        return (
+          response ||
+          fetch(event.request).then(function(response) {
+            cache.put(event.request, response.clone());
+            return response;
+          })
+        );
+      });
+    });
   }
 }
 
@@ -73,14 +83,12 @@ if (!isSW()) {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/worker.js').then(
         function(registration) {
-          // Registration was successful
           console.log(
             'ServiceWorker registration successful with scope: ',
             registration.scope
           );
         },
         function(err) {
-          // registration failed :(
           console.log('ServiceWorker registration failed: ', err);
         }
       );
