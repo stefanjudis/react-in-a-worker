@@ -14,6 +14,9 @@ module.exports = {
     publicPath: '/',
     filename: 'worker.js'
   },
+  devServer: {
+    historyApiFallback: true
+  },
   module: {
     rules: [
       {

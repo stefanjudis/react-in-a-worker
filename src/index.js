@@ -20,10 +20,7 @@ async function handleRequest(event) {
     };
 
     if (ctx.component.getInitialProps) {
-      ctx = {
-        ...ctx,
-        data: { ...(await ctx.component.getInitialProps(ctx)) }
-      };
+      ctx.data = await ctx.component.getInitialProps(ctx);
     }
 
     const markup = ReactDOMServer.renderToString(
@@ -51,17 +48,15 @@ async function handleRequest(event) {
       }
     );
   } else {
-    return caches.open('mysite-dynamic').then(function(cache) {
-      return cache.match(event.request).then(function(response) {
-        return (
-          response ||
-          fetch(event.request).then(function(response) {
-            cache.put(event.request, response.clone());
-            return response;
-          })
-        );
-      });
-    });
+    let cache = await caches.open('react-everywhere');
+    let response = await cache.match(event.request);
+
+    if (!response) {
+      response = await fetch(event.request);
+      event.waitUntil(cache.put(event.request, response.clone()));
+    }
+
+    return response;
   }
 }
 
@@ -76,7 +71,7 @@ if (!isSW()) {
     if (window.__INITIAL_DATA__) {
       ReactDOM.hydrate(<App {...window.__INITIAL_DATA__} />, app);
     } else {
-      ReactDOM.render(<App />, document.getElementById('app'));
+      ReactDOM.render(<App />, app);
     }
 
     if ('serviceWorker' in navigator) {
