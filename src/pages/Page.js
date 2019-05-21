@@ -35,7 +35,13 @@ function Page(props) {
   const C = props.component;
 
   return (
-    <div>{isLoading ? <div>loading</div> : <C data={data} {...props} />}</div>
+    <div className="h-full">
+      {isLoading ? (
+        <div className="p-8 text-center">Loading...</div>
+      ) : (
+        <C data={data} {...props} />
+      )}
+    </div>
   );
 }
 

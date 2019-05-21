@@ -1,11 +1,17 @@
 import React from 'react';
-import { isSW } from '../util/is-sw';
+import { Link } from 'react-router-dom';
 
 function Dogs({ data }) {
   return (
-    <div>
-      {data.dogs && data.dogs.length ? (
-        <div className="pt-8">
+    <div className="p-4">
+      <Link
+        to={'/'}
+        className="inline-block mt-4 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+      >
+        Bo back
+      </Link>
+      {!data.error && data.dogs.length ? (
+        <div className="pt-4">
           <ul className="flex flex-wrap">
             {data.dogs.map((dogImage, index) => (
               <li style={{ height: '250px', flex: '1 1 200px' }} key={index}>
@@ -22,7 +28,12 @@ function Dogs({ data }) {
           </ul>
         </div>
       ) : (
-        <h1>no dogs</h1>
+        <div
+          className="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+          role="alert"
+        >
+          <strong className="font-bold">Oh noes... {data.error}</strong>
+        </div>
       )}
     </div>
   );
@@ -37,7 +48,13 @@ Dogs.getInitialProps = async function(props) {
       );
       const responseJSON = await response.json();
 
-      console.log(responseJSON);
+      if (responseJSON.code === '404') {
+        return {
+          error: responseJSON.message,
+          dogs: []
+        };
+      }
+
       return {
         dogs: responseJSON.message.splice(0, 12)
       };
