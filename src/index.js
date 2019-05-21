@@ -31,6 +31,7 @@ async function handleRequest(event) {
       `<html>
         <head>
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <meta charset="utf-8"/>
           <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
         </head>
         <body>
