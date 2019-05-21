@@ -5,7 +5,6 @@ import Page from './pages/Page';
 import routes from './routes';
 
 function App(props) {
-  console.log(props);
   return isSW() ? (
     <StaticRouter location={props.match.path} context={props.data}>
       {routes.map((route, index) => (
