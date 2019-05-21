@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 function Page(props) {
-  console.log(props);
-
   function getData(props) {
     if (props.staticContext) {
       return props.staticContext;

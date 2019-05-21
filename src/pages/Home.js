@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function App({ route, history, data }) {
   function handleSubmit(event) {
-    history.push(`/dogs/${event.target.dog.value}`);
+    history.push(`/dogs/?dog=${event.target.dog.value}`);
     event.preventDefault();
   }
 
@@ -12,7 +12,7 @@ function App({ route, history, data }) {
       <div className="container mx-auto max-w-xs">
         <h1 className="text-2xl p-4">Doggo's paradise</h1>
         <div className="max-w-md rounded overflow-hidden shadow-lg px-4 pt-4">
-          <form method="get" action="/" onSubmit={handleSubmit}>
+          <form method="get" action="/dogs" onSubmit={handleSubmit}>
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Which dogs do you want to see?
               <input
@@ -118,13 +118,13 @@ function App({ route, history, data }) {
 
             <ul className="pt-4">
               <li className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-                <Link to={'/dogs/poodle'}>#poodle</Link>
+                <Link to={'/dogs/?dog=poodle'}>#poodle</Link>
               </li>
               <li className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-                <Link to={'/dogs/dachshund'}>#dachshund</Link>
+                <Link to={'/dogs/?dog=dachshund'}>#dachshund</Link>
               </li>
               <li className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">
-                <Link to={'/dogs/corgi'}>#corgi</Link>
+                <Link to={'/dogs/?dog=corgi'}>#corgi</Link>
               </li>
             </ul>
           </form>

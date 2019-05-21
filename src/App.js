@@ -17,8 +17,9 @@ const getRoutes = () =>
   ));
 
 function App(props) {
+  console.log(props);
   return isSW() ? (
-    <StaticRouter location={props.match.path} context={props.data}>
+    <StaticRouter location={props.location} context={props.data}>
       {getRoutes()}
     </StaticRouter>
   ) : (

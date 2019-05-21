@@ -8,7 +8,7 @@ export default [
     component: Home
   },
   {
-    path: '/dogs/:dog',
+    path: '/dogs/',
     component: Dogs
   }
 ];

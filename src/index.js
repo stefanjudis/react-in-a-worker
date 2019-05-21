@@ -15,7 +15,7 @@ async function handleRequest(event) {
   if (route) {
     let ctx = {
       component: route.component,
-      match: { ...matchPath(path, route) },
+      location: { pathname: url.pathname, search: url.search },
       data: {}
     };
 
@@ -24,7 +24,7 @@ async function handleRequest(event) {
     }
 
     const markup = ReactDOMServer.renderToString(
-      <App match={ctx.match} data={ctx.data} />
+      <App location={ctx.location} data={ctx.data} />
     );
 
     return new Response(

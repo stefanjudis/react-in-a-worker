@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import qs from 'query-string';
 
 function Dogs({ data }) {
   return (
@@ -41,10 +42,11 @@ function Dogs({ data }) {
 
 Dogs.getInitialProps = async function(props) {
   console.log(props);
-  if (props.match.params.dog) {
+  const dogParam = qs.parse(props.location.search).dog;
+  if (dogParam) {
     try {
       const response = await fetch(
-        `https://dog.ceo/api/breed/${props.match.params.dog}/images`
+        `https://dog.ceo/api/breed/${dogParam}/images`
       );
       const responseJSON = await response.json();
 
@@ -64,6 +66,7 @@ Dogs.getInitialProps = async function(props) {
   }
 
   return {
+    error: 'Please define `dog` query param',
     dogs: []
   };
 };
