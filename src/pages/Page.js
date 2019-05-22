@@ -13,7 +13,7 @@ function Page(props) {
     return null;
   }
   const serverData = getData(props);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(!serverData);
   const [data, setData] = useState(serverData);
 
   useEffect(() => {
