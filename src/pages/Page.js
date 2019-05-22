@@ -13,7 +13,7 @@ function Page(props) {
     return null;
   }
   const serverData = getData(props);
-  const [isLoading, setIsLoading] = useState(!serverData);
+  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(serverData);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ function Page(props) {
       setIsLoading(false);
     }
 
-    if (!data && props.component.getInitialProps) {
+    if (isLoading && props.component.getInitialProps) {
       fetchData();
     } else {
       setIsLoading(false);
