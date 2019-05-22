@@ -28,7 +28,7 @@ function Page(props) {
     } else {
       setIsLoading(false);
     }
-  });
+  }, []);
 
   const C = props.component;
 
