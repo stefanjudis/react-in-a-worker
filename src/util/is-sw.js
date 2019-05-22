@@ -1,3 +1,1 @@
-export function isSW() {
-  return typeof window === 'undefined';
-}
+export const isSW = typeof window === 'undefined';

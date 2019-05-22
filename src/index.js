@@ -65,7 +65,7 @@ self.addEventListener('fetch', event => {
   event.respondWith(handleRequest(event));
 });
 
-if (!isSW()) {
+if (!isSW) {
   window.addEventListener('load', function() {
     const app = document.querySelector('#app');
 
